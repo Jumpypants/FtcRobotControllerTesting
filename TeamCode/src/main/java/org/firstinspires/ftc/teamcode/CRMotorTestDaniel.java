@@ -48,7 +48,7 @@ public class CRMotorTestDaniel extends LinearOpMode {
         motors[3] = new Motor(hardwareMap, "three");
 
         // 0: inactive, 1: forward, -1: backward
-        int[] motorDirections = {1, 1, 0, 0};
+        int[] motorDirections = {0, 0, 0, 0};
 
         int currentlySelected = 0;
 

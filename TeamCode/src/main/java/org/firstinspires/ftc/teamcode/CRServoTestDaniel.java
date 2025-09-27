@@ -21,7 +21,7 @@ public class CRServoTestDaniel extends LinearOpMode {
         servos[5] = hardwareMap.get(CRServo.class, "fiveS");
 
         // 0: inactive, 1: forward, -1: backward
-        int[] servoDirections = {1, 1, 0, 0, 0, 0};
+        int[] servoDirections = {0, 0, 0, 0, 0, 0};
 
         int currentlySelected = 0;
 
