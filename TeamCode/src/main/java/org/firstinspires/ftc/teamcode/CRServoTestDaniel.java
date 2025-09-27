@@ -13,12 +13,12 @@ public class CRServoTestDaniel extends LinearOpMode {
     public void runOpMode() {
         CRServo[] servos = new CRServo[6];
 
-        servos[0] = hardwareMap.get(CRServo.class, "zero");
-        servos[1] = hardwareMap.get(CRServo.class, "one");
-        servos[2] = hardwareMap.get(CRServo.class, "two");
-        servos[3] = hardwareMap.get(CRServo.class, "three");
-        servos[4] = hardwareMap.get(CRServo.class, "four");
-        servos[5] = hardwareMap.get(CRServo.class, "five");
+        servos[0] = hardwareMap.get(CRServo.class, "zeroS");
+        servos[1] = hardwareMap.get(CRServo.class, "oneS");
+        servos[2] = hardwareMap.get(CRServo.class, "twoS");
+        servos[3] = hardwareMap.get(CRServo.class, "threeS");
+        servos[4] = hardwareMap.get(CRServo.class, "fourS");
+        servos[5] = hardwareMap.get(CRServo.class, "fiveS");
 
         // 0: inactive, 1: forward, -1: backward
         int[] servoDirections = {1, 1, 0, 0, 0, 0};
