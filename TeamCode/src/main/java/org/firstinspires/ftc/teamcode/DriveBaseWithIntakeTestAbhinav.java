@@ -1,17 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="DRIVE_BASE_TEST_ABHINAV", group="Linear OpMode")
-public class DriveBaseTestAbhinav extends LinearOpMode {
+@TeleOp(name="Drive_Base_With_Intake_Test_Abhinav", group="Linear OpMode")
+public class DriveBaseWithIntakeTestAbhinav extends LinearOpMode {
 
     private MecanumDrive drive;
+    private CRServo sparkArm;
 
     @Override
     public void runOpMode() {
+
+        sparkArm = hardwareMap.get(CRServo.class, "sparkArm");
+
         Motor frontLeft = new Motor(hardwareMap, "FrontLeft");
         Motor frontRight = new Motor(hardwareMap, "FrontRight");
         Motor backLeft = new Motor(hardwareMap, "BackLeft");
@@ -32,12 +37,21 @@ public class DriveBaseTestAbhinav extends LinearOpMode {
 
         waitForStart();
 
+        double power;
+
         while (opModeIsActive()) {
             drive.driveRobotCentric(
                     gamepad1.left_stick_x,   // strafe left/right
                     -gamepad1.left_stick_y,   // forward/back
                     gamepad1.right_stick_x    // rotation
             );
+
+            power = gamepad1.right_trigger;
+
+            sparkArm.setPower(power);
+
+            telemetry.addData("SPARKmini Power", power);
+            telemetry.update();
         }
     }
 }
