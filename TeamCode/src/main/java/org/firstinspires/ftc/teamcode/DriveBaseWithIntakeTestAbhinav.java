@@ -37,7 +37,7 @@ public class DriveBaseWithIntakeTestAbhinav extends LinearOpMode {
 
         waitForStart();
 
-        int power;
+        double power;
 
         while (opModeIsActive()) {
             drive.driveRobotCentric(
@@ -46,7 +46,7 @@ public class DriveBaseWithIntakeTestAbhinav extends LinearOpMode {
                     gamepad1.right_stick_x    // rotation
             );
 
-            power = (int)(gamepad1.right_trigger);
+            power = gamepad1.right_trigger;
 
             sparkArm.setPower(power);
 
