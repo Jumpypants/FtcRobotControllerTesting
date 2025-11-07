@@ -94,7 +94,7 @@ public class CRServoTestDaniel extends LinearOpMode {
             if (gamepad1.b) {
                 currentPower -= 0.001;
             }
-            currentPower = Math.max(0.0, Math.min(1.0, currentPower));
+            currentPower = Math.max(-1.0, Math.min(1.0, currentPower));
 
             // Set servo powers
             for (int i = 0; i < 6; i++) {

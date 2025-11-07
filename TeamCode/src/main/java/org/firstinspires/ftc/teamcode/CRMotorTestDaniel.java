@@ -47,6 +47,10 @@ public class CRMotorTestDaniel extends LinearOpMode {
         motors[2] = new Motor(hardwareMap, "two");
         motors[3] = new Motor(hardwareMap, "three");
 
+        for (Motor m : motors) {
+            m.setRunMode(Motor.RunMode.VelocityControl);
+        }
+
         // 0: inactive, 1: forward, -1: backward
         int[] motorDirections = {0, 0, 0, 0};
 
@@ -122,7 +126,7 @@ public class CRMotorTestDaniel extends LinearOpMode {
             if (gamepad1.b) {
                 currentPower -= 0.001;
             }
-            currentPower = Math.max(0.0, Math.min(1.0, currentPower));
+            currentPower = Math.max(-1.0, Math.min(1.0, currentPower));
 
             // Set motor powers
             for (int i = 0; i < 4; i++) {
