@@ -1,31 +1,36 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
-@TeleOp(name="DRIVE_BASE_TEST_ABHINAV", group="Linear OpMode")
-public class DriveBaseTestAbhinav extends LinearOpMode {
+@TeleOp(name="Drive_Base_With_Intake_Test_Abhinav", group="Linear OpMode")
+public class DriveBaseWithIntakeTestAbhinav extends LinearOpMode {
 
     private MecanumDrive drive;
+    private CRServo sparkArm;
     private BNO055IMU imu;
     private double headingOffset = 0.0;
 
     @Override
     public void runOpMode() {
 
-        Motor frontLeft  = new Motor(hardwareMap, "FrontLeft");
+        sparkArm = hardwareMap.get(CRServo.class, "sparkArm");
+
+        Motor frontLeft = new Motor(hardwareMap, "FrontLeft");
         Motor frontRight = new Motor(hardwareMap, "FrontRight");
-        Motor backLeft   = new Motor(hardwareMap, "BackLeft");
-        Motor backRight  = new Motor(hardwareMap, "BackRight");
+        Motor backLeft = new Motor(hardwareMap, "BackLeft");
+        Motor backRight = new Motor(hardwareMap, "BackRight");
 
         frontLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
 
         frontLeft.setInverted(true);
         frontRight.setInverted(true);
@@ -50,9 +55,12 @@ public class DriveBaseTestAbhinav extends LinearOpMode {
 
         waitForStart();
 
+        double power;
+
         headingOffset = imu.getAngularOrientation().firstAngle;
 
         double headingDeg ,rawHeading;
+
         while (opModeIsActive()) {
 
             rawHeading = imu.getAngularOrientation().firstAngle;
@@ -71,17 +79,23 @@ public class DriveBaseTestAbhinav extends LinearOpMode {
             );
 
 //            drive.driveRobotCentric(
-//                    gamepad1.left_stick_x, //strafe
-//                    -gamepad1.left_stick_y,     // forward/back
-//                    gamepad1.right_stick_x     // rotate
+//                    gamepad1.left_stick_x,   // strafe left/right
+//                    -gamepad1.left_stick_y,   // forward/back
+//                    gamepad1.right_stick_x    // rotation
 //            );
+
+            power = gamepad1.right_trigger - gamepad1.left_trigger;
+
+            sparkArm.setPower(power);
 
             if (gamepad1.y) {
                 headingOffset = imu.getAngularOrientation().firstAngle; //reset
             }
 
             telemetry.addData("Heading (deg)", headingDeg);
-            telemetry.addData("Heading (rad)", headingRad);
+//            telemetry.addData("Heading (rad)", headingRad);
+
+            telemetry.addData("SPARKmini Power", power);
             telemetry.update();
         }
     }
